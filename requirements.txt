@@ -1,0 +1,12 @@
+# Dependencias para ejecutar el análisis comparativo (Python 3.10 o superior).
+numpy>=1.23
+pandas>=2,<3
+scipy>=1.11,<2
+scikit-learn>=1.3,<2
+pyarrow>=14          # tablas intermedias del estudio de estabilidad (parquet)
+tqdm>=4.66,<5
+matplotlib>=3.7,<4   # figuras del informe
+pytest>=7            # pruebas automatizadas
+
+# Opcional y recomendado para las corridas completas: acelera el cálculo DTW.
+numba>=0.57,<1

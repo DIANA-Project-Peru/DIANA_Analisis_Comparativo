@@ -1,0 +1,23 @@
+# Configuración local con rutas a datos autorizados
+configuracion/rutas.json
+
+# Datos y resultados derivados: nunca se versionan
+*.npz
+*.npy
+*.parquet
+*.mp4
+*.avi
+*.mov
+salidas/
+resultados/
+datos/
+
+# Visores generados con datos reales
+visor_*.html
+!scripts/visor_alineamiento.py
+
+# Entorno de Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/

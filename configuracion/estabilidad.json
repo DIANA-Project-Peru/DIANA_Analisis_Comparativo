@@ -1,0 +1,119 @@
+{
+  "_descripcion": "Configuración del estudio de estabilidad (Sección 2.6 del informe). Las rutas de \"paths\" son relativas a datos_raiz; \"expected\" fija los conteos y huellas SHA-256 de los insumos, que se verifican antes de ejecutar.",
+  "analysis_name": "estabilidad_plantillas_12m",
+  "analysis_id": "full_200_seed20260715",
+  "methodological_goal": "Estimar, para cada acción y grupo etario, a partir de cuántos niños un conjunto adaptativo de plantillas reales seleccionadas mediante DTW deja de cambiar de manera relevante y mantiene un desempeño estable en niños no utilizados para construirlo, y cuántas plantillas reales (entre una y cinco) necesita cada grupo.",
+  "paths": {
+    "train_manifest": "data/manifests/holdout_12m/dtw_train_manifest_12m.csv",
+    "validation_manifest": "data/manifests/holdout_12m/dtw_validation_manifest_12m.csv",
+    "pairwise_index": "results/pairwise_train_12m/dtw_pairwise_index.csv",
+    "pairwise_directory": "results/pairwise_train_12m",
+    "official_medoids": "results/medoids_train_12m/dtw_medoids_by_action_agebin.csv",
+    "official_topk": "results/medoids_topk_train_12m/dtw_topk_medoids_by_action_agebin.csv",
+    "run_root": "(se reemplaza por la carpeta de salida definida en configuracion/rutas.json)"
+  },
+  "expected": {
+    "train_clips": 2809,
+    "train_unique_children": 109,
+    "groups": 52,
+    "pairwise_pairs": 83096,
+    "actions": 13,
+    "age_bins": [
+      "36_47mo",
+      "48_59mo",
+      "60_71mo",
+      "72_83mo"
+    ],
+    "sha256": {
+      "train_manifest": "0ae019f8d2881091f9e232828e18d61ade77deaab7930ea1f69c1a1b63849217",
+      "validation_manifest": "df36d9800ce611d0d4669d4b32ecb690a8040db99f2f669cbf7a67bbdbb6bd3d",
+      "pairwise_index": "9501cc512cee9cb2377a1e5a9c37a6e3da1d328603ae118a051c743774b84324",
+      "pairwise_bundle": "c668a77b98429e68352d625d0ee73eec8616f9ec818e7de1d995a80017b6c9e4",
+      "official_medoids": "7d22c8b2082b73c1201bf9245463f708855e144585f45be2595be7cf29142841",
+      "official_topk": "44cf2955d5c806970cfdc696dd897638a8583398e872996b9466cd1bf6bb783d"
+    }
+  },
+  "resampling": {
+    "master_seed": 20260715,
+    "repetitions": 200,
+    "n_grid": [
+      3,
+      5,
+      8,
+      10,
+      12,
+      15,
+      20,
+      25,
+      30
+    ],
+    "primary_holdout_size": 3,
+    "secondary_holdout_fraction": 0.2,
+    "secondary_holdout_minimum": 5,
+    "secondary_minimum_train_children": 8
+  },
+  "templates": {
+    "k_values": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "operational_cap": 3,
+    "minimum_assigned_children_absolute": 5,
+    "minimum_assigned_children_fraction": 0.15
+  },
+  "solver": {
+    "name": "multistart_greedy_pam_facility_location",
+    "n_starts": 5,
+    "swap_tolerance": 1e-12,
+    "maximum_one_template_per_child": true
+  },
+  "selection_thresholds": {
+    "k": {
+      "minimum_incremental_relative_gain": 0.05,
+      "minimum_incremental_relative_gain_k4_k5": 0.1,
+      "maximum_p90_relative_worsening": 0.02,
+      "minimum_support_success_rate": 0.8,
+      "maximum_independent_hungarian_between_median": 0.25,
+      "minimum_independent_assignment_ari_median": 0.5
+    },
+    "n": {
+      "maximum_normalized_excess_median": 0.05,
+      "maximum_normalized_excess_p90": 0.1,
+      "maximum_hungarian_between_median": 0.1,
+      "maximum_hungarian_between_p90": 0.2,
+      "minimum_assignment_agreement_median": 0.8,
+      "minimum_assignment_ari_median": 0.5,
+      "minimum_support_success_rate": 0.8,
+      "maximum_marginal_improvement_per_child_normalized": 0.01,
+      "maximum_later_deterioration_normalized": 0.02,
+      "required_later_nontrivial_sizes": 2
+    },
+    "identity": {
+      "exact_set_stable_rate": 0.8,
+      "functional_neighborhood_within_scale_multiplier": 1.0,
+      "functional_neighborhood_between_scale_fallback_multiplier": 0.1
+    },
+    "ambiguity": {
+      "margin_between_scale_fraction": 0.05
+    },
+    "confounders": {
+      "permutations": 200,
+      "dominant_effect_threshold": 0.5,
+      "significance_threshold": 0.05
+    }
+  },
+  "execution": {
+    "n_jobs": 4,
+    "worker_cap": 4,
+    "resume": true,
+    "thread_limits": {
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  }
+}

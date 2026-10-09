@@ -1,0 +1,13 @@
+{
+  "_descripcion": "Copiar como rutas.json (no se versiona). Rutas relativas a datos_raiz. La salida debe quedar fuera del repositorio.",
+  "datos_raiz": "/ruta/al/almacenamiento/autorizado/DIANA_DTW_v2",
+  "salida": "/ruta/fuera/del/repositorio/salidas_analisis_comparativo",
+  "manifiesto_elegibles": "data/manifests/dtw2_agebin_eligible.csv",
+  "manifiesto_entrenamiento": "data/manifests/holdout_12m/dtw_train_manifest_12m.csv",
+  "manifiesto_validacion": "data/manifests/holdout_12m/dtw_validation_manifest_12m.csv",
+  "secuencias": "data/sequences/normalized/root_scale_missing_safe_v1",
+  "matrices_historicas": "results/pairwise_train_12m",
+  "catalogo_primarias": "results/medoids_train_12m/dtw_medoids_by_action_agebin.csv",
+  "catalogo_topk": "results/medoids_topk_train_12m/dtw_topk_medoids_by_action_agebin.csv",
+  "registro_revision_visual": "results/reference_qc_v0.1/review_events.jsonl"
+}
